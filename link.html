@@ -1273,7 +1273,7 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/rhobera-kumsa-224103380/overlay/about-this-profile/" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/robera-k-b8399b386/"></i></a>
                 <a href="https://x.com/rhobera1" class="social-link" target="_blank"><i class="fab fa-x"></i></a>
                 <a href="https://discord.com/users/rhobera" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
                 <a href="https://t.me/rh0k17" class="social-link" target="_blank"><i class="fab fa-telegram"></i></a>
@@ -1497,5 +1497,23 @@
         });
         
     </script>
+    <script type="text/javascript">
+    (function (l) {
+      if (l.search[1] === "/") {
+        var decoded = l.search
+          .slice(1)
+          .split("&")
+          .map(function (s) {
+            return s.replace(/~and~/g, "&");
+          })
+          .join("?");
+        window.history.replaceState(
+          null,
+          null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    })(window.location);
+  </script>
 </body>
 </html>
