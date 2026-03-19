@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="rhobera logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
     <title>rhobera | Web Developer & Designer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1120,31 +1120,110 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
+            <style>
+            /* Hover / touch interaction for about image */
+            .about-image {
+                transition: transform 600ms cubic-bezier(0.165, 0.84, 0.44, 1),
+                    box-shadow 600ms cubic-bezier(0.165, 0.84, 0.44, 1),
+                    filter 600ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                will-change: transform, box-shadow;
+                position: relative;
+                touch-action: none;
+            }
+
+            .about-image::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255,255,255,0.04) 35%, rgba(255,255,255,0) 100%);
+                opacity: 0;
+                transform: translateX(-30%);
+                transition: transform 700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 500ms ease;
+                pointer-events: none;
+                z-index: 3;
+            }
+
+            /* Professional lift + subtle rotate + glow on hover / touch */
+            .about-image.hover,
+            .about-image:focus,
+            .about-image:hover {
+                transform: translateY(-14px) scale(1.045) rotate(-1.8deg);
+                box-shadow: 0 30px 60px rgba(46, 23, 255, 0), 0 10px 30px rgba(0, 0, 0, 0);
+                filter: saturate(1.05) contrast(1.02);
+            }
+
+            .about-image.hover::before,
+            .about-image:focus::before,
+            .about-image:hover::before {
+                opacity: 1;
+                transform: translateX(30%);
+            }
+
+            /* Active press feedback */
+            .about-image:active {
+                transform: translateY(-6px) scale(0.995) rotate(-0.6deg);
+                box-shadow: 0 18px 36px rgba(46, 23, 255, 0);
+            }
+
+            /* Keep the inner image non-interactive while allowing drag */
+            .about-image img {
+                pointer-events: none;
+                display: block;
+            }
+            </style>
+
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
-                <div class="about-text">
-                    
-                    <p>I'm a passionate creator who loves turning ideas into digital reality. With expertise in web development, graphic design, and video editing, I bring a unique combination of technical and creative skills to every project.</p>
-                    <p>My approach is simple: create solutions that are not only visually appealing but also functional and user-friendly. Whether it's a website, a graphic design, or a video project, I strive for perfection in every detail.</p>
-                    <div class="skills">
-                        <span class="skill">Web Develop</span>
-                        <span class="skill">HTML/CSS</span>
-                        <span class="skill">JavaScript</span>
-                        <span class="skill">React</span>
-                        <span class="skill">Node.js</span>
-                        <span class="skill">UI/UX Design</span>
-                        <span class="skill">Adobe Photoshop</span>
-                        <span class="skill">Video editing</span>
-                        <span class="skill">Motion Graphics</span>
-                        <span class="skill">Thumbnails</span>
-                        <span class="skill">Illustration</span>
-                    </div>
+            <div class="about-text">
+                <p>I'm a passionate creator who loves turning ideas into digital reality. With expertise in web development, graphic design, and video editing, I bring a unique combination of technical and creative skills to every project.</p>
+                <p>My approach is simple: create solutions that are not only visually appealing but also functional and user-friendly. Whether it's a website, a graphic design, or a video project, I strive for perfection in every detail.</p>
+                <div class="skills">
+                <span class="skill">Web Develop</span>
+                <span class="skill">HTML/CSS</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">React</span>
+                <span class="skill">Node.js</span>
+                <span class="skill">UI/UX Design</span>
+                <span class="skill">Adobe Photoshop</span>
+                <span class="skill">Video editing</span>
+                <span class="skill">Motion Graphics</span>
+                <span class="skill">Thumbnails</span>
+                <span class="skill">Illustration</span>
                 </div>
-                <div class="about-image" id="draggable-image">
-                    <div class="circle-frame"></div>
-<img src="rok.png">
-                </div>                    
             </div>
+            <div class="about-image floating" id="draggable-image" style="touch-action: none;" aria-hidden="false">
+                <div class="circle-frame"></div>
+                <img src="rok.png" alt="Portrait" draggable="false" style="width:100%;height:100%;border-radius:50%;object-fit:cover;pointer-events:none;user-select:none;-webkit-user-drag:none;">
+            </div>
+            </div>
+            <script>
+            (function () {
+                const img = document.getElementById('draggable-image');
+                if (!img) return;
+                const add = () => img.classList.add('hover');
+                const remove = () => img.classList.remove('hover');
+
+                // Mouse interactions
+                img.addEventListener('mouseenter', add);
+                img.addEventListener('mouseleave', remove);
+
+                // Touch interactions — add brief hover state on touch
+                img.addEventListener('touchstart', (e) => {
+                add();
+                // allow drag logic (existing) to continue — do not preventDefault here
+                }, { passive: true });
+                img.addEventListener('touchend', () => {
+                setTimeout(remove, 250);
+                });
+                img.addEventListener('touchcancel', remove);
+
+                // Keyboard accessibility (focus/blur)
+                img.setAttribute('tabindex', '0');
+                img.addEventListener('focus', add);
+                img.addEventListener('blur', remove);
+            })();
+            </script>
         </div>
     </section>
 
